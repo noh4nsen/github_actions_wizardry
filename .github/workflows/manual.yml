@@ -47,13 +47,13 @@ on:
                     - vpc
             target:
                 type: string
-            test:
-                type: choice
-                options: 
-                    - |
-                        A
-                        B
-                        C
+            # test:
+            #     type: choice
+            #     options: 
+            #         - |
+            #             A
+            #             B
+            #             C
 jobs:
     run-manual-workflow:
         runs-on: ubuntu-latest
