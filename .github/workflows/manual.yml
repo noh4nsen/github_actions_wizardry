@@ -11,8 +11,8 @@ on:
                 default: 'dev'
                 type: choice
                 options:
-                    - dev
-                    - stg
+                    - dev:test
+                    - stg:a
                     - prod
             region:
                 required: true
@@ -47,9 +47,12 @@ on:
                     - vpc
             target:
                 type: string
-            pr_description:
-                required: true
-                type: string
+            test:
+                type: choice
+                options: |
+                    A
+                    B
+                    C
 jobs:
     run-manual-workflow:
         runs-on: ubuntu-latest
