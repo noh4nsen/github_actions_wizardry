@@ -1,0 +1,24 @@
+name: Test manual workflow
+
+on:
+    workflow_dispatch:
+        inputs:
+            name:
+                type: choice
+                options:
+                - name1
+                - name2
+            message:
+                required: true
+            environment:
+                type: environment
+jobs:
+    run-manual-workflow:
+        runs-on: ubuntu-latest
+        steps:
+          - name: Print inputs
+            shell: bash
+            run: |
+              echo "name ${{ inputs.name }}"
+              echo "message ${{ inputs.message }}"
+              echo "environment ${{ inputs.environment }}"
