@@ -6,6 +6,9 @@ on:
             branch:
                 required: true
                 type: string
+            test:
+                required: true
+                type: boolean
             environment:
                 required: true
                 default: 'dev'
@@ -47,13 +50,7 @@ on:
                     - vpc
             target:
                 type: string
-            # test:
-            #     type: choice
-            #     options: 
-            #         - |
-            #             A
-            #             B
-            #             C
+
 jobs:
     run-manual-workflow:
         runs-on: ubuntu-latest
