@@ -6,26 +6,44 @@ on:
             branch:
                 required: true
                 type: string
-            test:
+            DEV:
                 required: true
                 type: boolean
-            environment:
+            STG:
                 required: true
-                default: 'dev'
-                type: choice
-                options:
-                    - dev:test
-                    - stg:a
-                    - prod
-            region:
+                type: boolean
+            PROD:
                 required: true
-                default: 'us-west-2'
-                type: choice
-                options:
-                    - eu-central-1
-                    - eu-west-1
-                    - us-east-1
-                    - us-west-2
+                type: boolean
+            eu-central-1:
+                required: true
+                type: boolean
+            eu-west-1:
+                required: true
+                type: boolean
+            us-east-1:
+                required: true
+                type: boolean
+            us-west-2:
+                required: true
+                type: boolean
+            # environment:
+            #     required: true
+            #     default: 'dev'
+            #     type: choice
+            #     options:
+            #         - dev:test
+            #         - stg:a
+            #         - prod
+            # region:
+            #     required: true
+            #     default: 'us-west-2'
+            #     type: choice
+            #     options:
+            #         - eu-central-1
+            #         - eu-west-1
+            #         - us-east-1
+            #         - us-west-2
             module:
                 required: true
                 type: choice
