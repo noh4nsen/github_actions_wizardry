@@ -1,5 +1,27 @@
 name: Matrix
 on: [push]
+    # workflow_dispatch:
+    #     inputs:
+    #         ubuntu-latest:
+    #             description: 'Run on Ubuntu'
+    #             type: boolean
+    #             default: true
+    #         windows-latest:
+    #             description: 'Run on Windows'
+    #             type: boolean
+    #             default: false
+    #         node-14:
+    #             description: 'Run on Node 14'
+    #             type: boolean
+    #             default: true
+    #         node-15:
+    #             description: 'Run on Node 15'
+    #             type: boolean
+    #             default: false
+    #         node-16:
+    #             description: 'Run on Node 16'
+    #             type: boolean
+    #             default: false
 
 jobs:
     node-matrix:
@@ -8,8 +30,9 @@ jobs:
         strategy:
             matrix:
                 os: [ubuntu-latest, windows-latest]
-                node-version: [14, 15, 16]
-                test: [A, B, C]
+                node-version: [14, 15]
+                test: [A, B]
+                test2: [1, 2]
             max-parallel: 3
             fail-fast: false # If any job of matrix fail, other jobs continue normally
         steps:
