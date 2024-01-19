@@ -1,38 +1,82 @@
 name: Matrix
-on: [push]
-    # workflow_dispatch:
-    #     inputs:
-    #         ubuntu-latest:
-    #             description: 'Run on Ubuntu'
-    #             type: boolean
-    #             default: true
-    #         windows-latest:
-    #             description: 'Run on Windows'
-    #             type: boolean
-    #             default: false
-    #         node-14:
-    #             description: 'Run on Node 14'
-    #             type: boolean
-    #             default: true
-    #         node-15:
-    #             description: 'Run on Node 15'
-    #             type: boolean
-    #             default: false
-    #         node-16:
-    #             description: 'Run on Node 16'
-    #             type: boolean
-    #             default: false
+on:
+    workflow_dispatch:
+        inputs:
+            ubuntu-latest:
+                description: 'Run on Ubuntu'
+                type: boolean
+                default: true
+            windows-latest:
+                description: 'Run on Windows'
+                type: boolean
+                default: false
+            node-14:
+                description: 'Run on Node 14'
+                type: boolean
+                default: true
+            node-15:
+                description: 'Run on Node 15'
+                type: boolean
+                default: false
+            node-16:
+                description: 'Run on Node 16'
+                type: boolean
+                default: false
 
 jobs:
+    setup-matrix-values: 
+        runs-on: ubuntu-latest
+        outputs:
+            os: ${{ steps.set-os.outputs.os }}}
+            node-version: ${{ steps.set-node-version.outputs.node-version }}
+        steps:
+            - name: Set os
+              id: set-os
+              run: |
+                if [ ${{ github.event.inputs.ubuntu-latest }} == true ]; then
+                    echo "os=['ubuntu-latest']" >> "$GITHUB_OUTPUT"
+                fi
+                if [ ${{ github.event.inputs.windows-latest }} == true ]; then
+                    echo "os=['windows-latest']" >> "$GITHUB_OUTPUT"
+                fi
+                if [ ${{ github.event.inputs.ubuntu-latest }} == true ] && [ ${{ github.event.inputs.windows-latest }} == true ]; then
+                    echo "os=['ubuntu-latest', 'windows-latest']" >> "$GITHUB_OUTPUT"
+                fi
+            - name: Set node-version
+              id: set-node-version
+              run: |
+                if [ ${{ github.event.inputs.node-14 }} == true ]; then
+                    echo "node-version=['14']" >> "$GITHUB_OUTPUT"
+                fi
+                if [ ${{ github.event.inputs.node-15 }} == true ]; then
+                    echo "node-version=['15']" >> "$GITHUB_OUTPUT"
+                fi
+                if [ ${{ github.event.inputs.node-16 }} == true ]; then
+                    echo "node-version=['16']" >> "$GITHUB_OUTPUT"
+                fi
+                if [ ${{ github.event.inputs.node-14 }} == true ] && [ ${{ github.event.inputs.node-15 }} == true ]; then
+                    echo "node-version=['14', '15']" >> "$GITHUB_OUTPUT"
+                fi
+                if [ ${{ github.event.inputs.node-14 }} == true ] && [ ${{ github.event.inputs.node-16 }} == true ]; then
+                    echo "node-version=['14', '16']" >> "$GITHUB_OUTPUT"
+                fi
+                if [ ${{ github.event.inputs.node-15 }} == true ] && [ ${{ github.event.inputs.node-16 }} == true ]; then
+                    echo "node-version=['15', '16']" >> "$GITHUB_OUTPUT"
+                fi
+                if [ ${{ github.event.inputs.node-14 }} == true ] && [ ${{ github.event.inputs.node-15 }} == true ] && [ ${{ github.event.inputs.node-16 }} == true ]; then
+                    echo "node-version=['14', '15', '16']" >> "$GITHUB_OUTPUT"
+                fi
+
     node-matrix:
+        needs: [setup-matrix-values]
         runs-on: ${{ matrix.os }}
         continue-on-error: true # Prevent the workflow from failing if any job fails
         strategy:
             matrix:
-                os: [ubuntu-latest, windows-latest]
-                node-version: [14, 15]
-                test: [A, B]
-                test2: [1, 2]
+                os: ${{ fromJson(needs.setup-matrix-values.outputs.os) }}
+                node-version: ${{ fromJson(needs.setup-matrix-values.outputs.node-version) }}
+                # test: [A, B]
+                # test2: [1, 2]
             max-parallel: 3
             fail-fast: false # If any job of matrix fail, other jobs continue normally
         steps:
