@@ -1,5 +1,5 @@
 name: Matrix
-run-name: "OS: Ubuntu:[${{inputs.ubuntu-latest}}] Windows:[${{inputs.windows-latest}}] - Node Versions: 14:[${{inputs.node-14}}] 15:[${{inputs.node-15}}] 16:[${{inputs.node-16}}]"
+run-name: "OS: Ubuntu: ${{inputs.ubuntu-latest}} Windows: ${{inputs.windows-latest}} - Node Versions: 14: ${{inputs.node-14}} 15: ${{inputs.node-15}} 16: ${{inputs.node-16}}"
 on:
     workflow_dispatch:
         inputs:
