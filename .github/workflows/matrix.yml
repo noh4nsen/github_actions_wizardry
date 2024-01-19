@@ -1,4 +1,5 @@
 name: Matrix
+run-name: "OS: [${{inputs.ubuntu-latest}}] [${{inputs.windows-latest}}] - Node Versions: [${{inputs.node-14}}] [${{inputs.node-15}}] [${{inputs.node-16}}]"
 on:
     workflow_dispatch:
         inputs:
