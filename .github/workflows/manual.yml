@@ -1,4 +1,4 @@
-name: Test manual workflow
+name: Manual plan
 
 on:
     workflow_dispatch:
@@ -27,23 +27,6 @@ on:
             us-west-2:
                 required: true
                 type: boolean
-            # environment:
-            #     required: true
-            #     default: 'dev'
-            #     type: choice
-            #     options:
-            #         - dev:test
-            #         - stg:a
-            #         - prod
-            # region:
-            #     required: true
-            #     default: 'us-west-2'
-            #     type: choice
-            #     options:
-            #         - eu-central-1
-            #         - eu-west-1
-            #         - us-east-1
-            #         - us-west-2
             module:
                 required: true
                 type: choice
@@ -76,4 +59,4 @@ jobs:
           - name: Print inputs
             shell: bash
             run: |
-              echo "running on ${{ inputs.branch }} for module ${{ inputs.module }} in ${{ inputs.environment }}-${{ inputs.region }} with target ${{ inputs.target }}"
+              echo "running on ${{ inputs.branch }} for module ${{ inputs.module }} with target ${{ inputs.target }}"
