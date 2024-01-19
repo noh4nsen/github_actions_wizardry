@@ -19,6 +19,7 @@ jobs:
               run: |
                 echo "NEW_ENV_VAR=$(date)" >> $GITHUB_ENV
                 echo "JOB_NAME=${{ github.job }}" >> $GITHUB_ENV
+                echo "RANDOM_VAR=$RANDOM" >> $GITHUB_ENV
             - name: Log Custom ENV Vars
               env:
                 STEP_LEVEL_ENV: Available to this step
@@ -36,5 +37,5 @@ jobs:
             - name: Log Workflow Level Env Var
               run: |
                 echo '${{ env.WF_LEVEL_ENV }}'
-                echo '${{ env.NEW_ENV_VAR }}'
-                echo '${{ env.JOB_NAME }}'
+                echo '${{ env.NEW_ENV_VAR }}' # Doesn't exist, was set on previous job
+                echo '${{ env.JOB_NAME }}' # Doesn't exist, was set on previous job
