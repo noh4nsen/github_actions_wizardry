@@ -20,6 +20,14 @@ jobs:
                 echo "NEW_ENV_VAR=$(date)" >> $GITHUB_ENV
                 echo "JOB_NAME=${{ github.job }}" >> $GITHUB_ENV
                 echo "RANDOM_VAR=$RANDOM" >> $GITHUB_ENV
+            - name: Multiline Env var
+              run: |
+                DELIMITER=1234
+                echo "RANDOM_JOKE<<$DELIMITER" >> $GITHUB_ENV
+                echo "Here is a joke: " >> $GITHUB_ENV
+                curl -s https://icanhazdadjoke.com/ >> $GITHUB_ENV
+                echo "" >> $GITHUB_ENV
+                echo "$DELIMITER" >> $GITHUB_ENV
             - name: Log Custom ENV Vars
               env:
                 STEP_LEVEL_ENV: Available to this step
@@ -31,6 +39,7 @@ jobs:
                 echo '${{ env.NEW_ENV_VAR }}'
                 echo '${{ env.JOB_NAME }}'
                 echo '${{ env.RANDOM_VAR }}'
+                echo '${{ env.RANDOM_JOKE }}'
 
     test-wf-level-env:
         runs-on: ubuntu-latest
