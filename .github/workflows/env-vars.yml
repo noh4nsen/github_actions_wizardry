@@ -30,6 +30,7 @@ jobs:
                 echo '${{ env.WF_LEVEL_ENV }}'
                 echo '${{ env.NEW_ENV_VAR }}'
                 echo '${{ env.JOB_NAME }}'
+                echo '${{ env.RANDOM_VAR }}'
 
     test-wf-level-env:
         runs-on: ubuntu-latest
