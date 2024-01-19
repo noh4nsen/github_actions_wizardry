@@ -9,6 +9,7 @@ jobs:
             matrix:
                 os: [ubuntu-latest, windows-latest]
                 node-version: [14, 15, 16]
+                test: [A, B, C]
             max-parallel: 3
             fail-fast: false # If any job of matrix fail, other jobs continue normally
         steps:
