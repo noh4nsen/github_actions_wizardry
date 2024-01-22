@@ -3,7 +3,7 @@ on: [push]
 
 jobs:
     test:
-      uses: ./.github/workflows/tf-plan.yml
+      uses: ./.github/workflows/_reusable_workflows/tf-plan.yml
       with:
         module: "aws"
         target: 'module.test.est'
