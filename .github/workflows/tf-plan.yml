@@ -35,12 +35,10 @@ jobs:
               id: tfvar_file
               shell: bash
               run: |
-                ENV_TFVARS=$(echo ${{ inputs.environment }} | tr '[:upper:]' '[:lower:]')
-                echo $ENV_TFVARS
                 if [ ${{ inputs.module }} == "custodian" ]; then
                     echo "tfvar_file=./config/${{ inputs.region }}.tfvars" >> $GITHUB_OUTPUT
                 else
-                    echo "tfvar_file=./config/$ENV_TFVARS-${{ inputs.region }}.tfvars" >> $GITHUB_OUTPUT
+                    echo "tfvar_file=./config/$(echo ${{ inputs.environment }} | tr '[:upper:]' '[:lower:]')-${{ inputs.region }}.tfvars" >> $GITHUB_OUTPUT
                 fi
             
             - name: Setup Workspace
