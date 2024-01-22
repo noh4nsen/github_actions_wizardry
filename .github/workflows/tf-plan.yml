@@ -1,0 +1,90 @@
+name: Terraform plan
+
+on:
+    workflow_call:
+        inputs:
+            module:
+                description: 'Module to plan'
+                required: true
+                type: string
+            target:
+                description: 'Target to plan'
+                required: true
+                type: string
+            environment:
+                description: 'Environment to plan'
+                required: true
+                type: string
+                default: 'DEV'
+            region:
+                description: 'Region to plan'
+                required: true
+                type: string
+                default: 'us-west-2'
+
+jobs:
+    setup_environment:
+        runs-on: ubuntu-latest
+        outputs:
+            tfvar_file: ${{ steps.tfvar_file.outputs.tfvar_file }}
+            workspace: ${{ steps.workspace.outputs.workspace }}
+            runner: ${{ steps.runner.outputs.runner }}
+            target_string: ${{ steps.target_string.outputs.target_string }}
+        steps:
+            - name: Setup TFvar File
+              id: tfvar_file
+              shell: bash
+              run: |
+                if [ ${{ github.event.inputs.module}} == "custodian" ]; then
+                    echo "tfvar_file=./config/${{ github.event.inputs.region }}.tfvars" >> $GITHUB_OUTPUT
+                else
+                    echo "tfvar_file=./config/${${{ github.event.inputs.environment }},,}-${{ github.event.inputs.region }}.tfvars" >> $GITHUB_OUTPUT
+                fi
+            
+            - name: Setup Workspace
+              id: workspace
+              shell: bash
+              run: |
+                if [ ${{ github.event.inputs.module }} == "custodian" ]; then
+                    echo "workspace=${{ github.event.inputs.region }}" >> $GITHUB_OUTPUT
+                else
+                    echo "workspace=${{ github.event.inputs.environment }}-${{ github.event.inputs.region }}" >> $GITHUB_OUTPUT
+                fi
+            
+            - name: Setup Runner
+              id: runner
+              run: |
+                if [ ${{ github.event.inputs.module }} == "custodian" ]; then
+                    echo "runner=['self-hosted', 'data-platform-custodian']" >> $GITHUB_OUTPUT
+                else
+                    if [ ${{ github.event.inputs.environment }} == "DEV" ]; then
+                        echo "runner=['self-hosted', 'data-platform-dev']" >> $GITHUB_OUTPUT
+                    elif [ ${{ github.event.inputs.environment }} == "STG" ]; then
+                        echo "runner=['self-hosted', 'data-platform-stg']" >> $GITHUB_OUTPUT
+                    elif [ ${{ github.event.inputs.environment }} == "PROD" ]; then
+                        echo "runner=['self-hosted', 'data-platform-prod']" >> $GITHUB_OUTPUT
+                    fi
+                fi
+            
+            - name: Setup Target String
+              id: target_string
+              run: |
+                if [ -z "${{ github.event.inputs.target }}" ]; then
+                    echo "target_string=" >> $GITHUB_OUTPUT
+                else
+                    echo "target_string='-target=${{ github.event.inputs.target }}'" >> $GITHUB_OUTPUT
+                fi
+
+    terraform_plan:
+        needs: [setup_environment]
+        runs-on: ubuntu-latest
+        defaults:
+            run:
+                working-directory: ${{ github.workspace }}/${{ github.event.inputs.module }}
+        steps:
+            - name: test variables
+              run: |
+                echo ${{ needs.setup_environment.outputs.tfvar_file }}
+                echo ${{ needs.setup_environment.outputs.workspace }}
+                echo ${{ needs.setup_environment.outputs.target_string }}
+                echo ${{ fromJson(needs.setup_environment.outputs.runner) }}
