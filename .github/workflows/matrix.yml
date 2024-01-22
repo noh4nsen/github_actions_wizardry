@@ -79,7 +79,11 @@ jobs:
                 node-version: ${{ fromJson(needs.setup-matrix-values.outputs.node-version) }}
                 exclude:
                     - os: windows-latest
-                      node-version: [14, 15]
+                      node-version: 14
+                    - os: windows-latest
+                      node-version: 15
+                    - os: ubuntu-latest
+                      node-version: 16
             max-parallel: 3
             fail-fast: false # If any job of matrix fail, other jobs continue normally
         steps:
