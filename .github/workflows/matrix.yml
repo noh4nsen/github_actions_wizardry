@@ -31,6 +31,7 @@ jobs:
             os: ${{ steps.set-os.outputs.os }}}
             node-version: ${{ steps.set-node-version.outputs.node-version }}
         steps:
+            # Transform these into a reusable workflow
             - name: Set os
               id: set-os
               run: |

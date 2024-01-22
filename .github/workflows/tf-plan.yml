@@ -35,10 +35,12 @@ jobs:
               id: tfvar_file
               shell: bash
               run: |
+                ENV_TFVARS=${${{ inputs.environment }},,}
+                echo $ENV_TFVARS
                 if [ ${{ inputs.module }} == "custodian" ]; then
                     echo "tfvar_file=./config/${{ inputs.region }}.tfvars" >> $GITHUB_OUTPUT
                 else
-                    echo "tfvar_file=./config/${${{ inputs.environment }},,}-${{ inputs.region }}.tfvars" >> $GITHUB_OUTPUT
+                    echo "tfvar_file=./config/$ENV_TFVARS-${{ inputs.region }}.tfvars" >> $GITHUB_OUTPUT
                 fi
             
             - name: Setup Workspace
@@ -84,4 +86,4 @@ jobs:
                 echo "TFVAR_FILE :: ${{ needs.setup_environment.outputs.tfvar_file }}"
                 echo "WORKSPACE :: ${{ needs.setup_environment.outputs.workspace }}"
                 echo "TARGET_STRING :: ${{ needs.setup_environment.outputs.target_string }}"
-                echo "RUNNER :: ${{ fromJson(needs.setup_environment.outputs.runner) }}"
+                echo "RUNNER :: ${{ needs.setup_environment.outputs.runner }}"
