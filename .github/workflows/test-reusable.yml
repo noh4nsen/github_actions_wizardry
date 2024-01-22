@@ -7,5 +7,5 @@ jobs:
       with:
         module: "aws"
         target: 'module.test.est'
-        environment: DEV
-        region: us-west-2
+        environment: STG
+        region: eu-central-1
