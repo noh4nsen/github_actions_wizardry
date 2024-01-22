@@ -3,9 +3,9 @@ on: [push]
 
 jobs:
     test:
-      uses: noh4nsen/github_actions_wizardry/.github/workflows/tf-plan.yml@main
+      uses: ./.github/workflows/tf-plan.yml@main
       with:
-        module: custodian
+        module: "custodian"
         target: ''
         environment: DEV
         region: us-west-2
