@@ -35,7 +35,7 @@ jobs:
               id: tfvar_file
               shell: bash
               run: |
-                if [ ${{ github.event.inputs.module}} == "custodian" ]; then
+                if [ ${{ inputs.module}} == "custodian" ]; then
                     echo "tfvar_file=./config/${{ github.event.inputs.region }}.tfvars" >> $GITHUB_OUTPUT
                 else
                     echo "tfvar_file=./config/${${{ github.event.inputs.environment }},,}-${{ github.event.inputs.region }}.tfvars" >> $GITHUB_OUTPUT
