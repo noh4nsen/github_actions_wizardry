@@ -3,7 +3,7 @@ on: [push]
 
 jobs:
     test:
-      uses: ./.github/workflows/tf-plan.yml
+      uses: noh4nsen/github_actions_wizardry/.github/workflows/tf-plan.yml
       with:
         module: custodian
         target: ''
