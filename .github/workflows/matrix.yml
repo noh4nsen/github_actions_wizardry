@@ -77,8 +77,9 @@ jobs:
             matrix:
                 os: ${{ fromJson(needs.setup-matrix-values.outputs.os) }}
                 node-version: ${{ fromJson(needs.setup-matrix-values.outputs.node-version) }}
-                # test: [A, B]
-                # test2: [1, 2]
+                exclude:
+                    - os: windows-latest
+                      node-version: 14
             max-parallel: 3
             fail-fast: false # If any job of matrix fail, other jobs continue normally
         steps:
