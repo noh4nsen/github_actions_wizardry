@@ -1,0 +1,11 @@
+name: test reusable
+on: [push]
+
+jobs:
+    test:
+      uses: ./.github/workflows/_reusable_workflows/tf-plan.yml
+      with:
+        module: custodian
+        target: ''
+        environment: DEV
+        region: us-west-2
