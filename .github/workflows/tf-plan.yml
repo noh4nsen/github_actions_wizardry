@@ -78,9 +78,6 @@ jobs:
     terraform_plan:
         needs: [setup_environment]
         runs-on: ubuntu-latest
-        defaults:
-            run:
-                working-directory: ${{ github.workspace }}/${{ inputs.module }}
         steps:
             - name: test variables
               run: |
