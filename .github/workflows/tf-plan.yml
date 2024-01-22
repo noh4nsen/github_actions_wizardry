@@ -35,7 +35,7 @@ jobs:
               id: tfvar_file
               shell: bash
               run: |
-                ENV_TFVARS=${${{ inputs.environment }},,}
+                ENV_TFVARS=${$(echo ${{ inputs.environment }}),,}
                 echo $ENV_TFVARS
                 if [ ${{ inputs.module }} == "custodian" ]; then
                     echo "tfvar_file=./config/${{ inputs.region }}.tfvars" >> $GITHUB_OUTPUT
