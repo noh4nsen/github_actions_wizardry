@@ -5,7 +5,7 @@ jobs:
     test:
       uses: ./.github/workflows/tf-plan.yml
       with:
-        module: "custodian"
-        target: ''
+        module: "aws"
+        target: 'module.test.est'
         environment: DEV
         region: us-west-2

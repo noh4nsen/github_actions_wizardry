@@ -81,7 +81,7 @@ jobs:
         steps:
             - name: test variables
               run: |
-                echo ${{ needs.setup_environment.outputs.tfvar_file }}
-                echo ${{ needs.setup_environment.outputs.workspace }}
-                echo ${{ needs.setup_environment.outputs.target_string }}
-                echo ${{ fromJson(needs.setup_environment.outputs.runner) }}
+                echo "TFVAR_FILE :: ${{ needs.setup_environment.outputs.tfvar_file }}"
+                echo "WORKSPACE :: ${{ needs.setup_environment.outputs.workspace }}"
+                echo "TARGET_STRING :: ${{ needs.setup_environment.outputs.target_string }}"
+                echo "RUNNER :: ${{ fromJson(needs.setup_environment.outputs.runner) }}"
