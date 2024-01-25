@@ -1,0 +1,152 @@
+name: Terraform - Manual Workflow
+on:
+  workflow_dispatch:
+    inputs:
+      module:
+        required: true
+        type: choice
+        options:
+            - alation/catalog
+            - alation/analytics
+            - astronomer
+            - aws
+            - custodian
+            - datadog
+            - dataiku
+            - datalake
+            - ecr
+            - github_actions
+            - iam
+            - jenkins_node
+            - jumpserver
+            - qlik
+            - securecore
+            - snowflake/snowflake
+            - snowflake/snowflake_data_lake
+            - snowflake/snowflake_dataiku
+            - snowflake/snowflake_edw
+            - snowflake/snowflake_fivetran
+            - snowflake/snowflake_global_fleet
+            - snowflake/snowflake_health
+            - snowflake/snowflake_legacy_health
+            - snowflake/snowflake_passthrough
+            - snowflake/snowflake_qlik
+            - snowflake/snowflake_rist
+            - snowflake/snowflake_service_accounts
+            - snowflake/snowflake_snowpipe
+            - snowflake/snowflake_team_workspace
+            - snowflake/snowflake_watershed
+            - ssm
+            - ssm_patch_manager
+            - tableau
+            - tri_secret_secure
+            - vpc
+      target:
+          type: string
+      DEV:
+        required: true
+        type: boolean
+      # STG:
+      #   required: true
+      #   type: boolean
+      # PROD:
+      #   required: true
+      #   type: boolean
+      us-west-2:
+        required: true
+        type: boolean
+      eu-central-1:
+        required: true
+        type: boolean
+      eu-west-1:
+        required: true
+        type: boolean
+      us-east-1:
+        required: true
+        type: boolean
+
+jobs:
+  setup-matrix:
+    runs-on: [self-hosted, Linux]
+    outputs:
+      environments: ${{ steps.set-environments.outputs.environments }}
+      regions: ${{ steps.set-regions.outputs.regions }}
+    steps:
+      - name: Set environments
+        id: set-environments
+        run: |
+          if [ ${{ github.event.inputs.DEV }} == true ]; then
+            echo "environments=['DEV']" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Set regions
+        id: set-regions
+        run: |
+          if [ ${{ github.event.inputs.us-west-2 }} == true ]; then
+            echo "regions=['us-west-2']" >> "$GITHUB_OUTPUT"
+          fi
+          if [ ${{ github.event.inputs.eu-central-1 }} == true ]; then
+            echo "regions=['eu-central-1']" >> "$GITHUB_OUTPUT"
+          fi
+          if [ ${{ github.event.inputs.eu-west-1 }} == true ]; then
+            echo "regions=['eu-west-1']" >> "$GITHUB_OUTPUT"
+          fi
+          if [ ${{ github.event.inputs.us-east-1 }} == true ]; then
+            echo "regions=['us-east-1']" >> "$GITHUB_OUTPUT"
+          fi
+          if [ ${{ github.event.inputs.us-west-2 }} == true && ${{ github.event.inputs.eu-central-1 }} == true ]; then
+            echo "regions=['us-west-2', 'eu-central-1']" >> "$GITHUB_OUTPUT"
+          fi
+          if [ ${{ github.event.inputs.us-west-2 }} == true && ${{ github.event.inputs.eu-west-1 }} == true ]; then
+            echo "regions=['us-west-2', 'eu-west-1']" >> "$GITHUB_OUTPUT"
+          fi
+          if [ ${{ github.event.inputs.us-west-2 }} == true && ${{ github.event.inputs.us-east-1 }} == true ]; then
+            echo "regions=['us-west-2', 'us-east-1']" >> "$GITHUB_OUTPUT"
+          fi
+          if [ ${{ github.event.inputs.eu-central-1 }} == true && ${{ github.event.inputs.eu-west-1 }} == true ]; then
+            echo "regions=['eu-central-1', 'eu-west-1']" >> "$GITHUB_OUTPUT"
+          fi
+          if [ ${{ github.event.inputs.eu-central-1 }} == true && ${{ github.event.inputs.us-east-1 }} == true ]; then
+            echo "regions=['eu-central-1', 'us-east-1']" >> "$GITHUB_OUTPUT"
+          fi
+          if [ ${{ github.event.inputs.eu-west-1 }} == true && ${{ github.event.inputs.us-east-1 }} == true ]; then
+            echo "regions=['eu-west-1', 'us-east-1']" >> "$GITHUB_OUTPUT"
+          fi
+          if [ ${{ github.event.inputs.us-west-2 }} == true && ${{ github.event.inputs.eu-central-1 }} == true && ${{ github.event.inputs.eu-west-1 }} == true ]; then
+            echo "regions=['us-west-2', 'eu-central-1', 'eu-west-1']" >> "$GITHUB_OUTPUT"
+          fi
+          if [ ${{ github.event.inputs.us-west-2 }} == true && ${{ github.event.inputs.eu-central-1 }} == true && ${{ github.event.inputs.us-east-1 }} == true ]; then
+            echo "regions=['us-west-2', 'eu-central-1', 'us-east-1']" >> "$GITHUB_OUTPUT"
+          fi
+          if [ ${{ github.event.inputs.us-west-2 }} == true && ${{ github.event.inputs.eu-west-1 }} == true && ${{ github.event.inputs.us-east-1 }} == true ]; then
+            echo "regions=['us-west-2', 'eu-west-1', 'us-east-1']" >> "$GITHUB_OUTPUT"
+          fi
+          if [ ${{ github.event.inputs.eu-central-1 }} == true && ${{ github.event.inputs.eu-west-1 }} == true && ${{ github.event.inputs.us-east-1 }} == true ]; then
+            echo "regions=['eu-central-1', 'eu-west-1', 'us-east-1']" >> "$GITHUB_OUTPUT"
+          fi
+          if [ ${{ github.event.inputs.us-west-2 }} == true && ${{ github.event.inputs.eu-central-1 }} == true && ${{ github.event.inputs.eu-west-1 }} == true && ${{ github.event.inputs.us-east-1 }} == true ]; then
+            echo "regions=['us-west-2', 'eu-central-1', 'eu-west-1', 'us-east-1']" >> "$GITHUB_OUTPUT"
+          fi
+
+
+  terraform_plan:
+      needs: [setup-matrix]
+      runs-on: [self-hosted, Linux]
+      continue-on-error: true
+      strategy:
+        matrix:
+          environments: ${{ fromJson(needs.setup-matrix.outputs.environments) }}
+          regions: ${{ fromJson(needs.setup-matrix.outputs.regions) }}
+          exclude:
+            - environments: DEV
+              regions: eu-west-1
+            - environments: DEV
+              regions: us-east-1
+        fail-fast: false
+      uses: ./.github/workflows/terraform-plan.yml
+      with:
+        module: ${{ github.event.inputs.module }}
+        target: ${{ github.event.inputs.target }}
+        environment: ${{ matrix.environments }}
+        region: ${{ matrix.regions }}
+        refresh: false

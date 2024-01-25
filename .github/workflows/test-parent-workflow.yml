@@ -1,0 +1,59 @@
+name: Terraform - Manual Workflow
+
+on:
+    workflow_dispatch:
+        inputs:
+            modules:
+                required: true
+                type: choice
+                options:
+                    - alation/analytics
+                    - alation/catalog
+                    - astronomer
+                    - aws
+                    - datadog
+                    - dataiku
+                    - ecr
+                    - github_actions
+                    - iam
+                    - jenkins_node
+                    - jumpserver
+                    - qlik
+                    - snowflake/snowflake
+                    - snowflake/snowflake_data_lake
+                    - snowflake/snowflake_dataiku
+                    - snowflake/snowflake_edw
+                    - snowflake/snowflake_fivetran
+                    - snowflake/snowflake_global_fleet
+                    - snowflake/snowflake_health
+                    - snowflake/snowflake_legacy_health
+                    - snowflake/snowflake_passthrough
+                    - snowflake/snowflake_qlik
+                    - snowflake/snowflake_risk
+                    - snowflake/snowflake_service_accounts
+                    - snowflake/snowflake_snowpipe
+                    - snowflake/snowflake_team_workspace
+                    - snowflake/snowflake_watershed
+                    - ssm
+                    - ssm_patch_manager
+                    - tableau
+                    - tri_secret_secure
+                    - vpc
+            region: 
+                required: true
+                type: choice
+                options:
+                    - us-west-2
+                    - eu-central-1
+            target:
+                type: string
+
+jobs:
+    terraform_manual_workflow:
+        uses: ./.github/workflows/terraform-plan.yml
+        with:
+            module: ${{ github.event.inputs.module }}
+            target: ${{ github.event.inputs.target }}
+            environment: DEV
+            region: ${{ github.event.inputs.region }}
+            refresh: false

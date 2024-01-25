@@ -1,0 +1,44 @@
+name: Terraform Plan
+
+on:
+    workflow_call:
+        inputs:
+            module:
+                description: 'Module to plan'
+                required: true
+                type: string
+            target:
+                description: 'Target to plan'
+                required: true
+                type: string
+            environment:
+                description: 'Environment to plan'
+                required: true
+                type: string
+                default: 'DEV'
+            region:
+                description: 'Region to plan'
+                required: true
+                type: string
+                default: 'us-west-2'
+            refresh:
+                description: 'Refresh state option'
+                required: true
+                type: boolean
+                default: false
+
+jobs:
+    setup_environment:
+        runs-on: [ self-hosted, Linux ]
+        steps:
+            - name: Setup TFvar File
+              id: tfvar_file
+              shell: bash
+              run: |
+                echo "Module :: ${{ inputs.module }}"
+                echo "target :: ${{ inputs.target }}"
+                echo "environment :: ${{ inputs.environment }}"
+                echo "region :: ${{ inputs.region }}"
+                echo "refresh :: ${{ inputs.refresh }}"
+
+
