@@ -21,12 +21,12 @@ jobs:
         steps:
             - run: echo "date=$(date)" >> $GITHUB_OUTPUT
               id: date-step
-    nested-worklow:
+    nested-workflow:
         uses: ./.github/workflows/04-nested-reusable-workflow.yml
         with:
             name: ${{ inputs.name }}
     generate-message:
-        needs: [generate-output, nested-worklow]
+        needs: [generate-output, nested-workflow]
         runs-on: ubuntu-latest
         outputs:
             message: ${{ steps.create-message.outputs.message }}
