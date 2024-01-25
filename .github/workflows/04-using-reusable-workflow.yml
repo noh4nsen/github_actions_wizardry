@@ -1,5 +1,5 @@
 name: "[04] - Calling Reusable Workflows"
-run-name: "[${{ github.ref }}] Generating message for ${{ inputs.name }}"
+run-name: "[${{ github.ref_name }}] Generating message for ${{ inputs.name }} - triggered by ${{ github.actor }}"
 on: 
     workflow_dispatch:
         inputs:
