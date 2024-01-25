@@ -1,4 +1,5 @@
-name: "[04][${{ inputs.name }}] - Calling Reusable Workflows"
+name: "[04] - Calling Reusable Workflows"
+run-name: "[${{ github.ref }}] Generatind message for ${{ inputs.name }}"
 on: 
     workflow_dispatch:
         inputs:
