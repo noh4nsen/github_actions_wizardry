@@ -1,4 +1,4 @@
-name: 04 - Calling Reusable Workflows
+name: "[04] - Calling Reusable Workflows"
 on: 
     workflow_dispatch:
         inputs:
