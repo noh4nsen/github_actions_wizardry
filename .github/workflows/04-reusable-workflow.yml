@@ -23,6 +23,8 @@ jobs:
               id: date-step
     nested-worklow:
         uses: ./.github/workflows/04-nested-reusable-workflow.yml
+        with:
+            name: ${{ inputs.name }}
     generate-message:
         needs: [generate-output, nested-worklow]
         runs-on: ubuntu-latest
