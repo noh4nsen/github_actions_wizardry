@@ -22,6 +22,7 @@ jobs:
             - run: echo "date=$(date)" >> $GITHUB_OUTPUT
               id: date-step
     nested-worklow:
+        needs: [generate-output]
         uses: ./.github/workflows/04-nested-reusable-workflow.yml
         with:
-            name: ${{ inputs.name }}
+            name: ${{ inputs.name }}-${{ needs.generate-output.outputs.date }}
