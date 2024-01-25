@@ -3,7 +3,7 @@ name: Terraform - Manual Workflow
 on:
     workflow_dispatch:
         inputs:
-            modules:
+            module:
                 required: true
                 type: choice
                 options:
