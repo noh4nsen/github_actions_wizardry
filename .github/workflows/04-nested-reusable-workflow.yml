@@ -1,0 +1,19 @@
+name: ~ Nested Reusable Workflow
+on:
+    workflow_call:
+        inputs:
+            name:
+                type: string
+                required: true
+        outputs:
+            message:
+                value: ${{ jobs.generate-output.outputs.message }}
+
+jobs:
+    generate-output:
+        runs-on: ubuntu-latest
+        outputs:
+            message: ${{ steps.message-step.outputs.message }}
+        steps:
+            - run: echo "message='Hello ${{ inputs.name }}'" >> $GITHUB_OUTPUT
+              id: message-step
