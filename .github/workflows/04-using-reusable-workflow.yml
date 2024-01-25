@@ -1,0 +1,11 @@
+name: 04 - Calling Reusable Workflows
+on: [workflow_dispatch]
+
+jobs:
+    calling-local-reusable-workflow:
+        uses: ./.github/workflows/04-reusable-workflow.yml
+    using-reusable-worfklow-output:
+        needs: [calling-local-reusable-workflow]
+        runs-on: ubuntu-latest
+        steps:
+            - run: echo ${{ needs.calling-local-reusable-workflow.outputs.date }}
