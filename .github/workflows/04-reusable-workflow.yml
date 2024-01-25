@@ -1,4 +1,4 @@
-name: Reusable Workflow
+name: ~ Reusable Workflow
 on:
     workflow_call:
         outputs:
