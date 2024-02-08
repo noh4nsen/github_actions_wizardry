@@ -12,4 +12,4 @@ jobs:
         steps:
             - name: print something
               run: |
-                echo "${{ toJson(github.event) }}"
+                echo "${{ toJson(github.event.pull_request) }}"
