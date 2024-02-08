@@ -1,0 +1,14 @@
+name: STG - test pull request
+
+on:
+    pull_request:
+        paths:
+            - '**/stg-*.tfvar'
+
+jobs:
+    test_pull_request_path:
+        runs-on: utunbu-latest
+
+        steps:
+            - name: print something
+              run: echo "TEST - STG"
