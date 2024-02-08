@@ -13,3 +13,8 @@ jobs:
             - name: print something
               run: |
                 echo "${{ toJson(github.event.pull_request) }}"
+
+            - name: Only on merge
+              if: github.event.pull_request.merged == true
+              run: |
+                echo the PR was merged

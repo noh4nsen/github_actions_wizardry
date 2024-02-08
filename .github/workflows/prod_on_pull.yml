@@ -12,3 +12,8 @@ jobs:
         steps:
             - name: print something
               run: echo "TEST - PROD"
+
+            - name: Only on merge
+              if: github.event.pull_request.merged == true
+              run: |
+                echo the PR was merged
