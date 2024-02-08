@@ -11,4 +11,5 @@ jobs:
 
         steps:
             - name: print something
-              run: echo "TEST- DEV"
+              run: |
+                echo ${{ github.event }}
