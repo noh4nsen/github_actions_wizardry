@@ -3,7 +3,7 @@ name: PROD - test pull request
 on:
     pull_request:
         paths:
-            - '**/prod-*.tfvar'
+            - '**/prod-*.tfvars'
 
 jobs:
     test_pull_request_path:

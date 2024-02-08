@@ -3,7 +3,7 @@ name: STG - test pull request
 on:
     pull_request:
         paths:
-            - '**/stg-*.tfvar'
+            - '**/stg-*.tfvars'
 
 jobs:
     test_pull_request_path:

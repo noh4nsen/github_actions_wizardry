@@ -3,7 +3,7 @@ name: DEV - test pull request
 on:
     pull_request:
         paths:
-            - '**/dev-*.tfvar'
+            - '**/dev-*.tfvars'
 
 jobs:
     test_pull_request_path:
