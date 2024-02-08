@@ -3,12 +3,17 @@ name: STG - test pull request
 on:
     pull_request:
         paths:
-            - '**/stg-*.tfvar'
+            - '**/stg-*.tfvars'
 
 jobs:
     test_pull_request_path:
-        runs-on: utunbu-latest
+        runs-on: ubuntu-latest
 
         steps:
             - name: print something
               run: echo "TEST - STG"
+
+            - name: Only on merge
+              if: github.event.pull_request.merged == true
+              run: |
+                echo the PR was merged
