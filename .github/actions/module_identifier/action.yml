@@ -19,18 +19,20 @@ runs:
   steps:
     - name: Action Setup
       shell: bash
+      working-directory: ${{ github.action_path }}/src
       run: |-
-        cd ${{ github.action_path }}/src
         python3 -m venv .venv
         source .venv/bin/activate
         pip install -r requirements.txt
 
     - name: Identify Module
       shell: bash
+      working-directory: ${{ github.action_path }}/src
       run: python module_identifier.py
 
     - name: Action Cleanup
       shell: bash
+      working-directory: ${{ github.action_path }}/src
       run: |-
         deactivate
         rm -rf .venv
