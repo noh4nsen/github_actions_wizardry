@@ -30,8 +30,10 @@ runs:
         REPO: ${{ inputs.repo }}
         PULL_NUMBER: ${{ inputs.pull_number }}
       run: |-
-        echo -e "\n\033[0;32m[ Action Setup ]\033[0m\n"
+        echo -e "\n\033[0;32m[ Action Setup ]\033[0m"
+        echo -e "\t\033[0;32m└── Creating virtual environment\033[0m"
         python3 -m venv .venv
+        echo -e "\t\033[0;32m└── Activating virtual environment\033[0m\n"
         source .venv/bin/activate
 
         echo -e "\n\033[0;32m[ Installing Requirements ]\033[0m\n"
@@ -40,6 +42,8 @@ runs:
         echo -e "\n\033[0;32m[ Executing Application ]\033[0m\n"
         python module_identifier.py
 
-        echo -e "\n\033[0;32m[ Action Cleanup ]\033[0m\n"
+        echo -e "\n\033[0;32m[ Action Cleanup ]\033[0m"
+        echo -e "\t\033[0;32m└── Deactivating virtual environment\033[0m"
         deactivate
+        echo -e "\t\033[0;32m└── Removing virtual environment files\033[0m\n"
         rm -rf .venv
