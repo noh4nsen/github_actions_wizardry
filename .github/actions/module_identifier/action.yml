@@ -24,15 +24,22 @@ runs:
     - name: Identify Module
       id: module_identifier
       shell: bash
+      working-directory: ${{ github.action_path }}/src
       env:
         GITHUB_TOKEN: ${{ inputs.token }}
         REPO: ${{ inputs.repo }}
         PULL_NUMBER: ${{ inputs.pull_number }}
-      working-directory: ${{ github.action_path }}/src
       run: |-
+        echo "\033[0;32m[ Action Setup ]\033[0m"
         python3 -m venv .venv
         source .venv/bin/activate
+
+        echo "\033[0;32m[ Installing Requirements ]\033[0m"
         pip install -r requirements.txt
+
+        echo "\033[0;32m[ Executing Application ]\033[0m"
         python module_identifier.py
+
+        echo "\033[0;32m[ Action Cleanup ]\033[0m"
         deactivate
         rm -rf .venv
