@@ -30,16 +30,16 @@ runs:
         REPO: ${{ inputs.repo }}
         PULL_NUMBER: ${{ inputs.pull_number }}
       run: |-
-        echo "\033[0;32m[ Action Setup ]\033[0m"
+        echo -e "\n\033[0;32m[ Action Setup ]\033[0m\n"
         python3 -m venv .venv
         source .venv/bin/activate
 
-        echo "\033[0;32m[ Installing Requirements ]\033[0m"
+        echo -e "\n\033[0;32m[ Installing Requirements ]\033[0m\n"
         pip install -r requirements.txt
 
-        echo "\033[0;32m[ Executing Application ]\033[0m"
+        echo -e "\n\033[0;32m[ Executing Application ]\033[0m\n"
         python module_identifier.py
 
-        echo "\033[0;32m[ Action Cleanup ]\033[0m"
+        echo -e "\n\033[0;32m[ Action Cleanup ]\033[0m\n"
         deactivate
         rm -rf .venv
