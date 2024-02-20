@@ -9,6 +9,26 @@ on:
             - '**/dev-us-west-2.tfvars'
 
 jobs:
+    identify_module:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout action
+          id: checkout_code
+          if: startsWith(github.head_ref, 'gha_beta/')
+          uses: actions/checkout@v4
+          with:
+            sparse-checkout: .github/actions
+
+        - name: Identify module
+          id: module_identifier
+          if: startsWith(github.head_ref, 'gha_beta/')
+          uses: ./.github/actions/module_identifier
+          with:
+            token: ${{ secrets.GITHUB_TOKEN }}
+            repo: ${{ github.event.repository.full_name }}
+            pull_number: ${{ github.event.number }}
+
+
     test_pull_request_path:
         runs-on: ubuntu-latest
 
