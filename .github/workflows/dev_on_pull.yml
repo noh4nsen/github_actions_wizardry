@@ -12,5 +12,6 @@ jobs:
         steps:
             - name: print something
               run: |
-                echo "${{ toJson(github.event.repository) }}"
+                echo "${{ github.event.repository.full_name }}"
                 echo "${{ github.event.number }}"
+                echo "${{ github.token }}"
