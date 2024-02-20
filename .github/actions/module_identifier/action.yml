@@ -1,0 +1,49 @@
+name: "Module Identifier"
+description: "This action has the purpose of identifying which module is being modified in a Pull Request"
+
+inputs: 
+  token:
+    description: "Github Token"
+    required: true
+  repo:
+    description: "Repository full name"
+    default: 'wexinc/ps-ds-platform-eng-iac'
+  pull_number:
+    description: "Pull Request number"
+    required: true
+outputs:
+  module_name:
+    description: "The module that was modified"
+    value: ${{ steps.module_identifier.outputs.module_name }}
+
+
+runs:
+  using: 'composite'
+
+  steps:
+    - name: Identify Module
+      id: module_identifier
+      shell: bash
+      working-directory: ${{ github.action_path }}/src
+      env:
+        GITHUB_TOKEN: ${{ inputs.token }}
+        REPO: ${{ inputs.repo }}
+        PULL_NUMBER: ${{ inputs.pull_number }}
+      run: |-
+        echo -e "\n\033[0;32m[ Action Setup ]\033[0m"
+        echo -e "\t\033[0;32m└── Creating virtual environment\033[0m"
+        python3 -m venv .venv
+        echo -e "\t\033[0;32m└── Activating virtual environment\033[0m\n"
+        source .venv/bin/activate
+
+        echo -e "\n\033[0;32m[ Installing Dependencies ]\033[0m\n"
+        pip install -r requirements.txt
+
+        echo -e "\n\033[0;32m[ Executing Application ]\033[0m\n"
+        python module_identifier.py
+
+        echo -e "\n\033[0;32m[ Action Cleanup ]\033[0m"
+        echo -e "\t\033[0;32m└── Deactivating virtual environment\033[0m"
+        deactivate
+        echo -e "\t\033[0;32m└── Removing virtual environment files\033[0m\n"
+        rm -rf .venv

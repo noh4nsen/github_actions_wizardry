@@ -1,0 +1,2 @@
+multi_project_directory: [analytics, catalog, snowflake, snowflake_data_lake, snowflake_dataiku, snowflake_warehouse]
+ignored_directories: [.github, modules, .]
