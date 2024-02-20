@@ -90,9 +90,9 @@ def validate_and_set_output(module_name, error_message):
 def set_github_output(module_name, error_message):
     print(f"module_name={module_name}")
     print(f"error={error_message}")
-    # with open(os.getenv("GITHUB_OUTPUT"), "a") as gho:
-    #     print(f"module_name={module_name}", file=gho)
-    #     print(f"error={error_message}", file=gho)
+    with open(os.getenv("GITHUB_OUTPUT"), "a") as gho:
+        print(f"module_name={module_name}", file=gho)
+        print(f"error={error_message}", file=gho)
 
 if __name__ == '__main__':
     main()

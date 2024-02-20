@@ -14,8 +14,12 @@ jobs:
             uses: actions/checkout@v4
 
           - uses: ./.github/actions/module_identifier
+            id: module_identifier
             with:
                 token: ${{ secrets.GITHUB_TOKEN }}
                 repo: ${{ github.event.repository.full_name }}
                 pull_number: ${{ github.event.number }}
 
+          - name: Print module
+            run: |-
+              echo "Module: ${{ steps.module_identifier.outputs.module_name }}"
