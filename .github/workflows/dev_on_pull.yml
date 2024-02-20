@@ -51,6 +51,7 @@ jobs:
           - name: Apply
             if: |
               startsWith(github.head_ref, 'gha_beta/') 
+              && github.event.action == 'closed'
               && github.event.pull_request.merged == true
             run: |
               cd ${{ needs.identify_module.outputs.module_name }}
