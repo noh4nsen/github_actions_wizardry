@@ -35,19 +35,18 @@ jobs:
         runs-on: ubuntu-latest
         needs: [identify_module]
         steps:
-          - name: Print module
+          - name: Plan
             if: |
               startsWith(github.head_ref, 'gha_beta/') 
               && github.event.action != 'closed'
             run: |
-              echo "Module: ${{ needs.identify_module.outputs.module_name }}"
-              pwd
-              echo "${{ github.event.action }}"
+              cd ${{ needs.identify_module.outputs.module_name }}
+              tree
 
-          - name: On Merge Only
+          - name: Apply
             if: |
               startsWith(github.head_ref, 'gha_beta/') 
               && github.event.pull_request.merged == true
             run: |
-              echo "Module: ${{ needs.identify_module.outputs.module_name }}"
-              echo "Merged"
+              cd ${{ needs.identify_module.outputs.module_name }}
+              tree
