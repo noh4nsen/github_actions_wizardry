@@ -12,5 +12,5 @@ jobs:
         steps:
             - name: print something
               run: |
-                echo "${{ github.event.repository.name }}"
+                echo "${{ github.event.repository }}"
                 echo "${{ github.event.number }}"
