@@ -10,8 +10,11 @@ jobs:
         runs-on: ubuntu-latest
 
         steps:
-            - name: print something
-              run: |
-                echo "${{ github.event.repository.full_name }}"
-                echo "${{ github.event.number }}"
-                echo "${{ github.token }}"
+          - name: checkout
+            uses: actions/checkout@v4
+
+          - uses: ./.github/actions/module_identifier
+            with:
+                token: ${{ secrets.GITHUB_TOKEN }}
+                repo: ${{ github.event.repository.full_name }}
+                pull_number: ${{ github.event.number }}

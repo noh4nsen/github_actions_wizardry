@@ -1,0 +1,36 @@
+name: "Module Identifier"
+description: "This action has the purpose of identifying which module is being modified in a Pull Request"
+
+inputs: 
+  token:
+    description: "The space webhook URL"
+    required: true
+  repo:
+    description: "Mention people or not, format <users/user_id>"
+    default: 'wexinc/ps-ds-platform-eng-iac'
+  pull_number:
+    description: "Pull Request number"
+    required: true
+  
+
+runs:
+  using: 'composite'
+
+  steps:
+    - name: Action Setup
+      shell: bash
+      run: |-
+        cd ${{ github.action_path }}/src
+        python3 -m venv .venv
+        source .venv/bin/activate
+        pip install -r requirements.txt
+
+    - name: Identify Module
+      shell: bash
+      run: python module_identifier.py
+
+    - name: Action Cleanup
+      shell: bash
+      run: |-
+        deactivate
+        rm -rf .venv
