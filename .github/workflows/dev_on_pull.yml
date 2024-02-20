@@ -31,7 +31,7 @@ jobs:
             run: |-
               echo "Module: ${{ steps.module_identifier.outputs.module_name }}"
               pwd
-              echo "${{ toJson(github.event.pull_request) }}"
+              echo "${{ github.event.action }}"
 
           - name: On Merge Only
             if: |
