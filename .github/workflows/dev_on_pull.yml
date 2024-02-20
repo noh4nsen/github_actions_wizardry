@@ -1,11 +1,11 @@
-name: DEV - test pull request
+name: "[DEV][US-WEST-2] - test pull request"
 
 on:
     pull_request:
         types: [opened, synchronize, reopened, closed]
         branches: dev
         paths:
-            - '**/dev-*.tfvars'
+            - '**/dev-us-west-2.tfvars'
 
 jobs:
     test_pull_request_path:
@@ -28,7 +28,8 @@ jobs:
           - name: Print module
             if: |
               startsWith(github.head_ref, 'gha_beta/') 
-            run: |-
+              && github.event.action != 'closed'
+            run: |
               echo "Module: ${{ steps.module_identifier.outputs.module_name }}"
               pwd
               echo "${{ github.event.action }}"
@@ -38,4 +39,5 @@ jobs:
               startsWith(github.head_ref, 'gha_beta/') 
               && github.event.pull_request.merged == true
             run: |
+              echo "Module: ${{ steps.module_identifier.outputs.module_name }}"
               echo "Merged"
