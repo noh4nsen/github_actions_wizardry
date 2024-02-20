@@ -3,10 +3,10 @@ description: "This action has the purpose of identifying which module is being m
 
 inputs: 
   token:
-    description: "The space webhook URL"
+    description: "Github Token"
     required: true
   repo:
-    description: "Mention people or not, format <users/user_id>"
+    description: "Repository full name"
     default: 'wexinc/ps-ds-platform-eng-iac'
   pull_number:
     description: "Pull Request number"
@@ -36,7 +36,7 @@ runs:
         echo -e "\t\033[0;32m└── Activating virtual environment\033[0m\n"
         source .venv/bin/activate
 
-        echo -e "\n\033[0;32m[ Installing Requirements ]\033[0m\n"
+        echo -e "\n\033[0;32m[ Installing Dependencies ]\033[0m\n"
         pip install -r requirements.txt
 
         echo -e "\n\033[0;32m[ Executing Application ]\033[0m\n"
