@@ -2,6 +2,8 @@ name: DEV - test pull request
 
 on:
     pull_request:
+        types: [opened, synchronize, reopened]
+        branches: dev
         paths:
             - '**/dev-*.tfvars'
 
@@ -11,9 +13,11 @@ jobs:
 
         steps:
           - name: Checkout
+            if: startsWith(github.head_ref, 'gha_beta/')
             uses: actions/checkout@v4
 
           - name: Identify module
+            if: startsWith(github.head_ref, 'gha_beta/')
             uses: ./.github/actions/module_identifier
             id: module_identifier
             with:
@@ -22,6 +26,7 @@ jobs:
                 pull_number: ${{ github.event.number }}
 
           - name: Print module
+            if: startsWith(github.head_ref, 'gha_beta/')
             run: |-
               echo "Module: ${{ steps.module_identifier.outputs.module_name }}"
               pwd
