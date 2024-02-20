@@ -11,13 +11,18 @@ inputs:
   pull_number:
     description: "Pull Request number"
     required: true
-  
+outputs:
+  module_name:
+    description: "The module that was modified"
+    value: ${{ steps.module_identifier.outputs.module_name }}
+
 
 runs:
   using: 'composite'
 
   steps:
     - name: Identify Module
+      id: module_identifier
       shell: bash
       env:
         GITHUB_TOKEN: ${{ inputs.token }}
