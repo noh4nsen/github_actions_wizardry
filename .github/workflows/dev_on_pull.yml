@@ -35,6 +35,11 @@ jobs:
         runs-on: ubuntu-latest
         needs: [identify_module]
         steps:
+          - name: Checkout action
+            id: checkout_code
+            if: startsWith(github.head_ref, 'gha_beta/')
+            uses: actions/checkout@v4
+
           - name: Plan
             if: |
               startsWith(github.head_ref, 'gha_beta/') 
