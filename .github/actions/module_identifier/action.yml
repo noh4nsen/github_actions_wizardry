@@ -28,7 +28,9 @@ runs:
     - name: Identify Module
       shell: bash
       working-directory: ${{ github.action_path }}/src
-      run: python module_identifier.py
+      run: |-
+        pip freeze
+        python module_identifier.py
 
     - name: Action Cleanup
       shell: bash
