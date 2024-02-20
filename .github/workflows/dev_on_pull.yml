@@ -2,7 +2,7 @@ name: DEV - test pull request
 
 on:
     pull_request:
-        types: [opened, synchronize, reopened]
+        types: [opened, synchronize, reopened, closed]
         branches: dev
         paths:
             - '**/dev-*.tfvars'
@@ -26,7 +26,16 @@ jobs:
                 pull_number: ${{ github.event.number }}
 
           - name: Print module
-            if: startsWith(github.head_ref, 'gha_beta/')
+            if: |
+              startsWith(github.head_ref, 'gha_beta/') 
             run: |-
               echo "Module: ${{ steps.module_identifier.outputs.module_name }}"
               pwd
+              echo "${{ toJson(github.event.pull_request) }}"
+
+          - name: On Merge Only
+            if: |
+              startsWith(github.head_ref, 'gha_beta/') 
+              && github.event.pull_request.merged == true
+            run: |
+              echo "Merged"
