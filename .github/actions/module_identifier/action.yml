@@ -17,28 +17,17 @@ runs:
   using: 'composite'
 
   steps:
-    - name: Action Setup
+    - name: Identify Module
       shell: bash
+      env:
+        GITHUB_TOKEN: ${{ inputs.token }}
+        REPO: ${{ inputs.repo }}
+        PULL_NUMBER: ${{ inputs.pull_number }}
       working-directory: ${{ github.action_path }}/src
       run: |-
         python3 -m venv .venv
         source .venv/bin/activate
         pip install -r requirements.txt
-        pip freeze
-        which python
-
-    - name: Identify Module
-      shell: bash
-      working-directory: ${{ github.action_path }}/src
-      run: |-
-        pip freeze
-        which python
         python module_identifier.py
-
-
-    - name: Action Cleanup
-      shell: bash
-      working-directory: ${{ github.action_path }}/src
-      run: |-
         deactivate
         rm -rf .venv
