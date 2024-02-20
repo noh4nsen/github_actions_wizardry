@@ -1,5 +1,5 @@
 name: "[TF][AUTO] - [DEV][US-WEST-2]"
-run-name: "[ ${{ github.ref_name }} ] - Pull Request: ${{ github.event.action }}"
+run-name: "[ ${{ github.event.pull_request.head.ref }} ] - Pull Request: ${{ github.event.action }}"
 
 on:
     pull_request:
