@@ -5,7 +5,7 @@ on:
     branches: dev
 
 jobs:
-  check_if_branch_is_ahead_of_main:
+  check_if_branch_is_ahead_of_dev:
     runs-on: ubuntu-latest
     name: Check if branch is ahead of dev
     steps:
