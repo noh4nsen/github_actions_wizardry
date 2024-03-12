@@ -15,6 +15,6 @@ jobs:
           fetch-depth: 0
       - name: Check if branch is ahead of dev
         run: |
-          if ! git merge-base --is-ancestor origin/main ${{ github.event.pull_request.head.sha }};
+          if ! git merge-base --is-ancestor origin/dev ${{ github.event.pull_request.head.sha }};
           then echo "This branch is not up to date with main";
           exit 1; fi
