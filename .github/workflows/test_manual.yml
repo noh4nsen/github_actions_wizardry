@@ -1,0 +1,21 @@
+name: test
+
+on:
+    workflow_dispatch:
+
+jobs:
+    test_json_input:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Git checkout
+              uses: actions/checkout@v4
+            - name: Test
+              id: test_action
+              uses: ./.github/actions/test_json_input
+              with:
+                tags: >
+                    [
+                        {"Key": "Name", "Value": "Test1"},
+                        {"Key": "Size", "Value": 12},
+                        {"Key": "ABC", "Value": "cde"}
+                    ]

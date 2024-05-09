@@ -1,0 +1,14 @@
+name: test
+description: 'Test aciton'
+
+inputs:
+  tags:
+    description: >-
+      Tags that are going to be attached to the instance and volume.
+      This input is required on 'start' mode.
+      Example: '[{"Key": "TagKey1", "Value": "TagValue1"}, {"Key": "TagKey2", "Value": "TagValue2"}]'
+    required: false
+
+runs:
+  using: docker
+  image: Dockerfile
