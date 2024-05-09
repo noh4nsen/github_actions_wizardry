@@ -1,6 +1,6 @@
-import os
+import os, json
 
-tags = eval(os.environ["INPUT_TAGS"])
+tags = json.loads(os.environ["INPUT_TAGS"])
 
 print(tags)
 print(type(tags))
