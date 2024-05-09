@@ -1,3 +1,6 @@
 import os
 
-print(os.environ["INPUT_TAGS"])
+tags = os.environ["INPUT_TAGS"]
+
+print(tags)
+print(type(tags))
