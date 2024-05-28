@@ -1,0 +1,15 @@
+name: "Test action"
+
+outputs:
+  test:
+    description: "The tickets to be created on Snowflake DEV."
+
+  test2:
+    description: "The tickets to be created on Snowflake PROD."
+
+  test_multiline:
+    description: "The tickets to be created on Snowflake STG."
+
+runs:
+  using: docker
+  image: Dockerfile
