@@ -16,3 +16,4 @@ jobs:
               run: |
                 echo ${{ steps.test_action.outputs.test }}
                 echo ${{ steps.test_action.outputs.test2 }}
+                echo ${{ steps.test_action.outputs.test_multiline }}
