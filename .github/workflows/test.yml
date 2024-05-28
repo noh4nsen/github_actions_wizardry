@@ -13,7 +13,11 @@ jobs:
               id: test_action  
               uses: ./.github/actions/test-action
             - name: outputs
+              env:
+                OUTPUT_1: ${{ steps.test_action.outputs.test }}
+                OUTPUT_2: ${{ steps.test_action.outputs.test2 }}
+                MULTILINE_OUTPUT: ${{ steps.test_action.outputs.test_multiline }}
               run: |
-                echo ${{ steps.test_action.outputs.test }}
-                echo ${{ steps.test_action.outputs.test2 }}
-                echo ${{ steps.test_action.outputs.test_multiline }}
+                echo $OUTPUT_1
+                echo $OUTPUT_2
+                echo $MULTILINE_OUTPUT
