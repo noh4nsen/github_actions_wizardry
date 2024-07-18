@@ -24,8 +24,8 @@ body:
   - type: input
     id: workflow_url
     attributes:
-      label: "Workflow run URL"
-      description: Please enter your Workflow run URL to provide a reproduction of the issue
+      label: "Example workflow run URL"
+      description: Please enter a Workflow run URL to provide an example of the issue
       placeholder: ex. https://github.com/ORG/REPO-NAME/actions/runs/RUN-NUMBER
     validations:
       required: true
@@ -36,10 +36,11 @@ body:
       description: In which environments you had this bug?
       multiple: true
       options:
-        - dev
-        - stg
-        - prod
-        - custodian
+        - Dev
+        - Stg
+        - Prod
+        - Custodian
+        - Not on an specific environment
     validations:
       required: false
   - type: dropdown
@@ -53,6 +54,7 @@ body:
         - eu-central-1
         - us-east-1
         - eu-west-1
+        - Not on an specific region
     validations:
       required: false
   - type: textarea
@@ -72,7 +74,6 @@ body:
     id: additional_context
     attributes:
       label: "Additional context"
-      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
-      render: bash
+      description: Add any other context about the problem here.
     validations:
       required: false
