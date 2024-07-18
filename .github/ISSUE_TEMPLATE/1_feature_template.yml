@@ -27,10 +27,18 @@ body:
     validations:
       required: false
   - type: textarea
-    id: description
+    id: what
     attributes:
-      label: "Describe your feature"
+      label: "What"
       description: Please enter an explicit description of your idea
       placeholder: Description of your idea...
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: "Why"
+      description: Please enter why this feature is important to you and what does it solve
+      placeholder: Description of why this feature is important and what does it solve...
     validations:
       required: true
