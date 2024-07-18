@@ -30,8 +30,8 @@ body:
     id: what
     attributes:
       label: "What"
-      description: Please enter an explicit description of your idea
-      placeholder: Description of your idea...
+      description: Please enter an explicit description of your feature idea
+      placeholder: Description of your feature idea...
     validations:
       required: true
   - type: textarea
