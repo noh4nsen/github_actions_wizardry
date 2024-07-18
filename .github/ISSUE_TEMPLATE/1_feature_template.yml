@@ -5,10 +5,10 @@ labels: ["enhancement"]
 
 body:
   - type: dropdown
-    id: workflow_type
+    id: automation_type
     attributes:
-      label: "Workflow"
-      description: In which automation you want this feature?
+      label: "Automation"
+      description: In which automation you need this feature?
       multiple: false
       options:
         - Terraform
