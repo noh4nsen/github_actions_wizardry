@@ -1,7 +1,6 @@
 name: "🐛 Bug Report"
 
-description: Create a new ticket for a bug. Help us improve!
-#title: "🐛 <title>"
+description: Create a bug report, help us improve!
 labels: ["bug"]
 
 body:
