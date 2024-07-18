@@ -29,26 +29,32 @@ body:
       placeholder: ex. https://github.com/ORG/REPO-NAME/actions/runs/RUN-NUMBER
     validations:
       required: true
-  - type: checkboxes
+  - type: dropdown
     id: environments
     attributes:
       label: "Which environments the bug was found"
       description: In which environments you had this bug?
+      multiple: true
       options:
-        - label: dev
-        - label: stg
-        - label: prod
-        - label: custodian
-  - type: checkboxes
+        - dev
+        - stg
+        - prod
+        - custodian
+    validations:
+      required: false
+  - type: dropdown
     id: regions
     attributes:
       label: "Which regions the bug was found"
       description: In which regions you had this bug?
+      multiple: true
       options:
-        - label: us-west-2
-        - label: eu-central-1
-        - label: us-east-1
-        - label: eu-west-1
+        - us-west-2
+        - eu-central-1
+        - us-east-1
+        - eu-west-1
+    validations:
+      required: false
   - type: textarea
     id: reproduction_steps
     attributes:
