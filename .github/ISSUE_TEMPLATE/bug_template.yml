@@ -40,9 +40,9 @@ body:
         - Stg
         - Prod
         - Custodian
-        - Not on an specific environment
+        - N/A
     validations:
-      required: false
+      required: true
   - type: dropdown
     id: regions
     attributes:
@@ -54,15 +54,15 @@ body:
         - eu-central-1
         - us-east-1
         - eu-west-1
-        - Not on an specific region
+        - N/A
     validations:
-      required: false
+      required: true
   - type: textarea
     id: reproduction_steps
     attributes:
       label: "Reproduction steps"
       description: If applicable, the steps to reproduce the behavior
-      value: |
+      placeholder: |
         1. Go to '...'
         2. Click on '....'
         3. Scroll down to '....'
