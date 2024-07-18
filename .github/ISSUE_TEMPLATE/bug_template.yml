@@ -2,9 +2,7 @@ name: "🐛 Bug Report"
 
 description: Create a new ticket for a bug. Help us improve!
 title: "🐛 <title>"
-labels: [
-  "bug"
-]
+labels: ["bug"]
 
 body:
   - type: textarea
@@ -23,11 +21,45 @@ body:
       placeholder: Description of what you expected to happen...
     validations:
       required: true
+  - type: input
+    id: workflow_url
+    attributes:
+      label: "Workflow run URL"
+      description: Please enter your Workflow run URL to provide a reproduction of the issue
+      placeholder: ex. https://github.com/ORG/REPO-NAME/actions/runs/RUN-NUMBER
+    validations:
+      required: true
+  - type: dropdown
+    id: environments
+    attributes:
+      label: "Which environments the bug was found"
+      description: In which environments you had this bug?
+      multiple: true
+      options:
+        - dev
+        - stg
+        - prod
+        - custodian
+    validations:
+      required: false
+  - type: dropdown
+    id: regions
+    attributes:
+      label: "Which regions the bug was found"
+      description: In which regions you had this bug?
+      multiple: true
+      options:
+        - us-west-2
+        - eu-central-1
+        - us-east-1
+        - eu-west-1
+    validations:
+      required: false
   - type: textarea
     id: reproduction_steps
     attributes:
       label: "Reproduction steps"
-      description: Steps to reproduce the behavior
+      description: If applicable, the steps to reproduce the behavior
       value: |
         1. Go to '...'
         2. Click on '....'
@@ -35,59 +67,12 @@ body:
         4. See error
       render: bash
     validations:
-      required: true
-
-
-  - type: input
-    id: reprod-url
-    attributes:
-      label: "Reproduction URL"
-      description: Please enter your GitHub URL to provide a reproduction of the issue
-      placeholder: ex. https://github.com/USERNAME/REPO-NAME
-    validations:
-      required: true
-
-  - type: textarea
-    id: screenshot
-    attributes:
-      label: "Screenshots"
-      description: If applicable, add screenshots to help explain your problem.
-      value: |
-        ![DESCRIPTION](LINK.png)
-      render: bash
-    validations:
       required: false
   - type: textarea
-    id: logs
+    id: additional_context
     attributes:
-      label: "Logs"
+      label: "Additional context"
       description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
       render: bash
-    validations:
-      required: false
-  - type: dropdown
-    id: browsers
-    attributes:
-      label: "Browsers"
-      description: What browsers are you seeing the problem on ?
-      multiple: true
-      options:
-        - Firefox
-        - Chrome
-        - Safari
-        - Microsoft Edge
-        - Opera
-    validations:
-      required: false
-  - type: dropdown
-    id: os
-    attributes:
-      label: "OS"
-      description: What is the impacted environment ?
-      multiple: true
-      options:
-        - Windows
-        - Linux
-        - Mac
     validations:
       required: false
