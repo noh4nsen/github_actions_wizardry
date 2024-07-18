@@ -24,7 +24,7 @@ body:
   - type: input
     id: workflow_url
     attributes:
-      label: "Example workflow run URL"
+      label: "Workflow URL"
       description: Please enter a Workflow run URL to provide an example of the issue
       placeholder: ex. https://github.com/ORG/REPO-NAME/actions/runs/RUN-NUMBER
     validations:
@@ -32,7 +32,7 @@ body:
   - type: dropdown
     id: environments
     attributes:
-      label: "Which environments the bug was found"
+      label: "Environments"
       description: In which environments you had this bug?
       multiple: true
       options:
@@ -46,7 +46,7 @@ body:
   - type: dropdown
     id: regions
     attributes:
-      label: "Which regions the bug was found"
+      label: "Regions"
       description: In which regions you had this bug?
       multiple: true
       options:
@@ -67,7 +67,6 @@ body:
         2. Click on '....'
         3. Scroll down to '....'
         4. See error
-      render: bash
     validations:
       required: false
   - type: textarea
