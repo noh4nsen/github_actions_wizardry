@@ -1,6 +1,6 @@
-name: "🤖 Automation/Tool Request"
+name: "🤖 Automation Request"
 
-description: Suggest something that could be automated or were a tool would come in handy!
+description: Suggest something that could be automated!
 labels: ["automation"]
 
 body:
@@ -8,7 +8,7 @@ body:
     id: what
     attributes:
       label: "What"
-      description: Describe the problem that you want automated or need a tool for
+      description: Describe the problem that you want automated
       placeholder: Description of what you want automated...
     validations:
       required: true
@@ -16,7 +16,7 @@ body:
     id: why
     attributes:
       label: "Why"
-      description: Describe why do you want this automation/tool
+      description: Describe why do you want this automation
       placeholder: Description of why this is important to you...
     validations:
       required: true
@@ -32,7 +32,7 @@ body:
     id: impact
     attributes:
       label: "Impact"
-      description: Describe the impact of this automation/tool
+      description: Describe the impact of this automation
       placeholder: Description of how does not having this affect you and what you would be able to achieve with this...
     validations:
       required: true
