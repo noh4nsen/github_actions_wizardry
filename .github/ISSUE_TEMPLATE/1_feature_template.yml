@@ -1,6 +1,6 @@
 name: "💡 Feature Request"
 
-description: Suggest an feature, enhancement, or automation that we could implement!
+description: Suggest an feature, or enhancement that we could implement!
 labels: ["enhancement"]
 
 body:

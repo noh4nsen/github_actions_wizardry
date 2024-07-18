@@ -1,0 +1,38 @@
+name: "🤖 Automation/Tool Request"
+
+description: Suggest something that could be automated or were a tool would come in handy!
+labels: ["automation"]
+
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: "What"
+      description: Describe the problem that you want automated or need a tool for
+      placeholder: Description of what you want automated...
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: "Why"
+      description: Describe why do you want this automation/tool
+      placeholder: Description of why this is important to you...
+    validations:
+      required: true
+  - type: textarea
+    id: how
+    attributes:
+      label: "How"
+      description: Describe how you have been managing this task
+      placeholder: Description of how you've been managing this task...
+    validations:
+      required: true
+  - type: textarea
+    id: impact
+    attributes:
+      label: "Impact"
+      description: Describe the impact of this automation/tool
+      placeholder: Description how does not having this affect you and what you would be able to achieve with this...
+    validations:
+      required: true
