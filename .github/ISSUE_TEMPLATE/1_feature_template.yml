@@ -1,62 +1,28 @@
 name: "💡 Feature Request"
 
-description: Suggest an feature, or enhancement that we could implement!
+description: Suggest a new feature that we could implement!
 labels: ["enhancement"]
 
 body:
+  - type: dropdown
+    id: workflow_type
+    attributes:
+      label: "Workflow"
+      description: In which automation you want this feature?
+      multiple: false
+      options:
+        - Terraform
+        - Snowflake
+        - JSM/JIRA
+        - Repository Management
+        - Other
+    validations:
+      required: true
   - type: input
-    id: start_date
+    id: other_type
     attributes:
-      label: "Start Date"
-      description: Start of development
-      placeholder: "month/day/year"
-    validations:
-      required: false
-  - type: textarea
-    id: implementation_pr
-    attributes:
-      label: "Implementation PR"
-      description: Pull request used
-      placeholder: "#Pull Request ID"
-    validations:
-      required: false
-  - type: textarea
-    id: reference_issues
-    attributes:
-      label: "Reference Issues"
-      description: Common issues
-      placeholder: "#Issues IDs"
-    validations:
-      required: false
-  - type: textarea
-    id: summary
-    attributes:
-      label: "Summary"
-      description: Provide a brief explanation of the feature
-      placeholder: Describe in a few lines your feature request
-    validations:
-      required: true
-  - type: textarea
-    id: basic_example
-    attributes:
-      label: "Basic Example"
-      description: Indicate here some basic examples of your feature.
-      placeholder: A few specific words about your feature request.
-    validations:
-      required: true
-  - type: textarea
-    id: drawbacks
-    attributes:
-      label: "Drawbacks"
-      description: What are the drawbacks/impacts of your feature request ?
-      placeholder: Identify the drawbacks and impacts while being neutral on your feature request
-    validations:
-      required: true
-  - type: textarea
-    id: unresolved_question
-    attributes:
-      label: "Unresolved questions"
-      description: What questions still remain unresolved ?
-      placeholder: Identify any unresolved issues.
+      label: "Other"
+      description: If you selected Other, please specify in which automation or tool you need this feature
+      placeholder: ex. resource-finder/runner-checker/snowflake_user_list_clone
     validations:
       required: false

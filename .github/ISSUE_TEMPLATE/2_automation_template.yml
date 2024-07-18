@@ -33,6 +33,6 @@ body:
     attributes:
       label: "Impact"
       description: Describe the impact of this automation/tool
-      placeholder: Description how does not having this affect you and what you would be able to achieve with this...
+      placeholder: Description of how does not having this affect you and what you would be able to achieve with this...
     validations:
       required: true
