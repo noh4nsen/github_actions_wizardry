@@ -26,3 +26,11 @@ body:
       placeholder: ex. resource-finder/runner-checker/snowflake_user_list_clone
     validations:
       required: false
+  - type: textarea
+    id: description
+    attributes:
+      label: "Describe your feature"
+      description: Please enter an explicit description of your idea
+      placeholder: Description of your idea...
+    validations:
+      required: true
