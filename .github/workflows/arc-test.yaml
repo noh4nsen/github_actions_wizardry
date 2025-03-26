@@ -9,4 +9,4 @@ jobs:
     steps:
     - run: lsb_release -a
     - run: free
-    - run: top
+    - run: sleep 5m
