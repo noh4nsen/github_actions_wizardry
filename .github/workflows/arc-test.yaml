@@ -17,3 +17,6 @@ jobs:
     - uses: actions/hello-world-docker-action@main
       with:
         who-to-greet: "TEST"
+    - uses: actions/hello-world-docker-action@v2
+      with:
+        who-to-greet: "TEST3"
