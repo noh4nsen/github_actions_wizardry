@@ -21,3 +21,4 @@ jobs:
                 echo $OUTPUT_1
                 echo $OUTPUT_2
                 echo $MULTILINE_OUTPUT
+                echo ${{ steps.test_action.outputs.test_multiline }}
