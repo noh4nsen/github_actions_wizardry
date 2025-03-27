@@ -9,5 +9,8 @@ jobs:
     steps:
     - run: lsb_release -a
     - run: free
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 20
     - uses: hashicorp/setup-terraform@v3
     - run: terraform -v
