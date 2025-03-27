@@ -14,3 +14,6 @@ jobs:
         node-version: 20
     - uses: hashicorp/setup-terraform@v3
     - run: terraform -v
+    - uses: actions/hello-world-docker-action@main
+      with:
+        who-to-greet: "TEST"
