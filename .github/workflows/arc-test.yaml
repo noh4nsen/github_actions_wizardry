@@ -9,4 +9,5 @@ jobs:
     steps:
     - run: lsb_release -a
     - run: free
-    - run: sleep 5m
+    - uses: hashicorp/setup-terraform@v3
+    - run: terraform -v
