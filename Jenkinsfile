@@ -27,7 +27,6 @@ pipeline {
     stage('Install Terraform') {
       steps {
         sh '''
-          set -euo pipefail
           mkdir -p "$WORKSPACE/bin"
           if ! command -v terraform >/dev/null 2>&1; then
             OS=linux; ARCH=amd64
