@@ -1,7 +1,9 @@
 pipeline {
+  // Requires Docker on the Jenkins node (or use a Docker agent node)
   agent {
     docker {
       image 'hashicorp/terraform:1.7.5'
+      // workspace is mounted automatically; /bin/sh is fine
     }
   }
 
@@ -12,17 +14,20 @@ pipeline {
   }
 
   parameters {
-    choice(name: 'ACTION', choices:['plan', 'apply', 'destroy'], description: 'What to run')
+    choice(name: 'ACTION', choices: ['plan', 'apply', 'destroy'], description: 'What to run')
+    choice(name: 'ENV', choices: ['dev', 'stg', 'prod'], description: 'Loads env/<ENV>.tfvars if present')
     string(name: 'TF_DIR', defaultValue: 'terraform', description: 'Path to the Terraform project')
   }
 
   environment {
     TF_IN_AUTOMATION = 'true'
     TF_INPUT = '0'
+    // Expose the ENV parameter to shell easily
+    ENV = "${params.ENV}"
   }
 
   stages {
-    state('Checkout') {
+    stage('Checkout') {
       steps {
         checkout scm
       }
@@ -48,12 +53,11 @@ pipeline {
           expression { params.ACTION == 'apply' }
         }
       }
-
       steps {
         dir("${params.TF_DIR}") {
           sh '''
             set -eu
-          EXTRA=""
+            EXTRA=""
             if [ -f "env/${ENV}.tfvars" ]; then EXTRA="-var-file=env/${ENV}.tfvars"; fi
             terraform plan -input=false -no-color $EXTRA -out=tfplan
             terraform show -no-color tfplan > tfplan.txt
@@ -61,19 +65,9 @@ pipeline {
           '''
         }
         archiveArtifacts artifacts: "${params.TF_DIR}/tfplan,${params.TF_DIR}/tfplan.txt,${params.TF_DIR}/tfplan.json", fingerprint: true
-        }
       }
+    }
 
-     stage('Apply (manual gate)') {
-      when { expression { params.ACTION == 'apply' } }
-      steps {
-        input message: "Apply plan to ${params.ENV}?", ok: "Apply"
-        dir("${params.TF_DIR}") {
-          sh 'set -eu; terraform apply -input=false -auto-approve tfplan'
-        }
-      }
-    }    
-    
     stage('Apply (manual gate)') {
       when { expression { params.ACTION == 'apply' } }
       steps {
@@ -82,7 +76,8 @@ pipeline {
           sh 'set -eu; terraform apply -input=false -auto-approve tfplan'
         }
       }
-    }     
+    }
+
     stage('Destroy (manual gate)') {
       when { expression { params.ACTION == 'destroy' } }
       steps {
@@ -111,4 +106,3 @@ pipeline {
     }
   }
 }
-
