@@ -51,7 +51,6 @@ pipeline {
       steps {
         dir("${params.TF_DIR}") {
           sh '''
-            set -euo pipefail
             terraform fmt -check -recursive
             terraform init -input=false -no-color
             terraform validate -no-color
