@@ -67,7 +67,6 @@ pipeline {
       steps {
         dir("${params.TF_DIR}") {
           sh '''
-            set -euo pipefail
             EXTRA=""
             [ -f "env/${ENV}.tfvars" ] && EXTRA="-var-file=env/${ENV}.tfvars"
             terraform plan -input=false -no-color $EXTRA -out=tfplan
@@ -95,7 +94,6 @@ pipeline {
         input message: "Destroy ALL resources in ${params.ENV}? This is irreversible.", ok: "Destroy"
         dir("${params.TF_DIR}") {
           sh '''
-            set -euo pipefail
             EXTRA=""
             [ -f "env/${ENV}.tfvars" ] && EXTRA="-var-file=env/${ENV}.tfvars"
             terraform destroy -input=false -auto-approve -no-color $EXTRA
