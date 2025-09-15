@@ -8,8 +8,7 @@ pipeline {
 
   parameters {
     choice(name: 'ACTION', choices: ['plan','apply','destroy'], description: 'Terraform action')
-    choice(name: 'ENV',    choices: ['dev','stg','prod'],       description: 'env/<ENV>.tfvars if present')
-    string(name: 'TF_DIR', defaultValue: 'terraform',           description: 'Path to Terraform project')
+    choice(name: 'TF_DIR', choices: ['project_1'],           description: 'Path to Terraform project')
   }
 
   environment {
@@ -82,7 +81,7 @@ pipeline {
       steps {
         input message: "Apply plan to ${params.ENV}?", ok: "Apply"
         dir("${params.TF_DIR}") {
-          sh 'set -euo pipefail; terraform apply -input=false -auto-approve tfplan'
+          sh 'terraform apply -input=false -auto-approve tfplan'
         }
       }
     }
