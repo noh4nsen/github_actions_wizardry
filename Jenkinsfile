@@ -8,6 +8,7 @@ pipeline {
 
   parameters {
     choice(name: 'ACTION', choices: ['plan','apply','destroy'], description: 'Terraform action')
+    choice(name: 'ENV',    choices: ['dev','stg','prod'],       description: 'env/<ENV>.tfvars if present')
     choice(name: 'TF_DIR', choices: ['project_1'],           description: 'Path to Terraform project')
   }
 
